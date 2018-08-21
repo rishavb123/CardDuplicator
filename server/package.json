@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/rishavb123/CardDuplicator/issues"
   },
-  "homepage": "https://github.com/rishavb123/CardDuplicator#readme"
+  "homepage": "https://github.com/rishavb123/CardDuplicator#readme",
+  "dependencies": {
+    "firebase-admin": "^6.0.0"
+  }
 }
