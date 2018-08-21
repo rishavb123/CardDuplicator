@@ -16,7 +16,7 @@ fileButton.addEventListener('change', e => {
 
     let file = e.target.files[0];
 
-    let storageRef = firebase.storage().ref('photos/' + file.name);
+    let storageRef = firebase.storage().ref('photos/' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + " - " + file.name);
 
     let task = storageRef.put(file);
 
@@ -24,8 +24,7 @@ fileButton.addEventListener('change', e => {
 
         function progress(snapshot)
         {
-            let percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            uploader.value = percent;
+            uploader.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         },
 
         function error(err)
