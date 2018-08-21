@@ -1,0 +1,27 @@
+{
+  "name": "card-duplicator-server",
+  "version": "1.0.0",
+  "description": "A server that will take images from firebase and then return the cards in the image",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rishavb123/CardDuplicator.git"
+  },
+  "keywords": [
+    "magic",
+    "the",
+    "gathering",
+    "cards",
+    "card",
+    "duplicator"
+  ],
+  "author": "Rishav Bhagat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rishavb123/CardDuplicator/issues"
+  },
+  "homepage": "https://github.com/rishavb123/CardDuplicator#readme"
+}
