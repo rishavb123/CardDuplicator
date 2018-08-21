@@ -1,0 +1,7 @@
+functions/node_modules
+firebase-debug.log
+firebase.json
+.firebaserc
+functions/.eslintrc.json
+functions/package.json
+firebase
