@@ -33,7 +33,7 @@ fileButton.addEventListener('change', e => {
                 err => {}, // on error
 
                 () => {
-                    location.href="veiwer.html"
+                    location.href="viewer.html"
                 } // on complete
 
             );
