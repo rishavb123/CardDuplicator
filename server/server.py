@@ -6,7 +6,7 @@ from skimage import io
 
 cred = credentials.Certificate("credentials\cred.json")
 app = firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://databaseName.firebaseio.com',
+    'databaseURL': 'https://card-duplicator.firebaseio.com/',
     "storageBucket": "card-duplicator.appspot.com",
     'databaseAuthVariableOverride': {
         'uid': 'python-server'
@@ -16,9 +16,8 @@ app = firebase_admin.initialize_app(cred, {
 bucket = storage.bucket()
 
 ref = db.reference('job')
-print ref.get()
 
-def getImageExplained(s):
+def getImageExplained():
     b = bucket.blob("photos/" + s + " - image.jpg")
     url = bucket.blob("photos/" + s + " - image.jpg").public_url
     image_read = io.imread(url)
