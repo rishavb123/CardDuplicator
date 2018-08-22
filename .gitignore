@@ -6,3 +6,4 @@ functions/.eslintrc.json
 functions/package.json
 firebase
 server/node_modules
+server/credentials/cred.json
