@@ -15,13 +15,19 @@ app = firebase_admin.initialize_app(cred, {
 
 bucket = storage.bucket()
 
+ref = db.reference('job')
+print ref.get()
+
+def getImageExplained(s):
+    b = bucket.blob("photos/" + s + " - image.jpg")
+    url = bucket.blob("photos/" + s + " - image.jpg").public_url
+    image_read = io.imread(url)
+    image_colors_fixed = cv2.cvtColor(image_read, cv2.COLOR_BGR2RGB)
+    image_resized = cv2.resize(image_colors_fixed, (0, 0), fx=0.3, fy=0.3)
+    return image_resized
 
 def getImage(s):
-    b = bucket.blob("photos/" + s + " - image.jpg")
-
-    url = b.public_url
-
-    return cv2.resize(cv2.cvtColor(io.imread(url), cv2.COLOR_BGR2RGB), (0, 0), fx=0.3, fy=0.3)
+    return cv2.resize(cv2.cvtColor(io.imread(bucket.blob("photos/" + s + " - image.jpg").public_url), cv2.COLOR_BGR2RGB), (0, 0), fx=0.3, fy=0.3)
 
 cv2.imshow("image", getImage("4yb1kyjavjph9xgpg7l86w"))
 
