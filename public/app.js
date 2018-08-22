@@ -16,20 +16,32 @@ fileButton.addEventListener('change', e => {
 
     let file = e.target.files[0];
 
-    let storageRef = firebase.storage().ref('photos/' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + " - " + file.name);
+    let storageRef = firebase.storage().ref('photos/' + file.name);
 
-    let task = storageRef.put(file);
+    firebase.database().ref("job").once("value", snap => {
+        if(snap.val() === "complete" || !snap.val())
+        {
+            firebase.database().ref("job").set("new job");
+            let task = storageRef.put(file);
+            task.on('state_changed',
 
-    task.on('state_changed',
+                //on progress
+                snapshot => {
+                    uploader.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                },
 
-        snapshot => {
-            uploader.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        },
+                err => {}, // on error
 
-        err => {},
+                () => {
+                    location.href="veiwer.html"
+                } // on complete
 
-        () => {}
-
-    );
+            );
+        }
+        else
+        {
+            alert("Another Job is in process\nTry Again in 1-2 minutes")
+        }
+    })
 
 });
