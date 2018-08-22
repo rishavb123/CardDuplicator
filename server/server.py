@@ -25,10 +25,10 @@ def getImageExplained():
     image_resized = cv2.resize(image_colors_fixed, (0, 0), fx=0.3, fy=0.3)
     return image_resized
 
-def getImage(s):
-    return cv2.resize(cv2.cvtColor(io.imread(bucket.blob("photos/" + s + " - image.jpg").public_url), cv2.COLOR_BGR2RGB), (0, 0), fx=0.3, fy=0.3)
+def getImage():
+    return cv2.resize(cv2.cvtColor(io.imread(bucket.blob("image.jpg").public_url), cv2.COLOR_BGR2RGB), (0, 0), fx=0.3, fy=0.3)
 
-cv2.imshow("image", getImage("4yb1kyjavjph9xgpg7l86w"))
+cv2.imshow("image", getImage())
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
