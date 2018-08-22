@@ -22,20 +22,13 @@ fileButton.addEventListener('change', e => {
 
     task.on('state_changed',
 
-        function progress(snapshot)
-        {
+        snapshot => {
             uploader.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         },
 
-        function error(err)
-        {
+        err => {},
 
-        },
-
-        function complete()
-        {
-
-        }
+        () => {}
 
     );
 
