@@ -16,7 +16,7 @@ fileButton.addEventListener('change', e => {
 
     let file = e.target.files[0];
 
-    let storageRef = firebase.storage().ref('photos/' + file.name);
+    let storageRef = firebase.storage().ref(file.name);
 
     firebase.database().ref("job").once("value", snap => {
         if(snap.val() === "complete" || !snap.val())
