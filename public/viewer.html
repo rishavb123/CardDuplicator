@@ -2,9 +2,54 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>Viewer</title>
+        <style>
+
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            img {
+                width: 100vw;
+                height: 100vh;
+            }
+
+        </style>
     </head>
     <body>
-        Hello World
+
+        <img src="" id="img"/>
+
+        <script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
+        <script type="text/javascript">
+            let config = {
+                apiKey: "AIzaSyBG8Vxk1MsP2bEZsOpe4cJYrIbqkGbFHZE",
+                authDomain: "card-duplicator.firebaseapp.com",
+                databaseURL: "https://card-duplicator.firebaseio.com",
+                projectId: "card-duplicator",
+                storageBucket: "card-duplicator.appspot.com",
+                messagingSenderId: "70748670873"
+            };
+            firebase.initializeApp(config);
+
+            firebase.storage().ref("card.jpg").getDownloadURL().then(url => {
+                document.getElementById('img').src = url;
+            });
+
+            setInterval(() => {
+                firebase.storage().ref("card.jpg").getDownloadURL().then(url => {
+                    if(document.getElementById('img').src != url)
+                        document.getElementById('img').src = url;
+                });
+            }, 2000);
+
+        </script>
     </body>
 </html>
