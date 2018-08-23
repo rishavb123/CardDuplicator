@@ -29,8 +29,15 @@ ref = db.reference('job')
 def getImage():
     return ndimage.rotate(cv2.resize(cv2.cvtColor(io.imread(bucket.blob("image.jpg").public_url), cv2.COLOR_BGR2RGB), (0, 0), fx=0.3, fy=0.3), -90)
 
+def getCard(img):
+    return img
+
 while True:
-    
+    if ref.get() == 'start':
+        ref.set("doing")
+        card = getCard(getImage())
+        cv2.imwrite("card-local.jpg", card)
+        bucket.blob("card.jpg").upload_from_filename("card-local.jpg")
     cv2.imshow("image", getImage())
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
