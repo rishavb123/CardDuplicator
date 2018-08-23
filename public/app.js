@@ -21,7 +21,7 @@ fileButton.addEventListener('change', e => {
     firebase.database().ref("job").once("value", snap => {
         if(snap.val() === "complete" || !snap.val())
         {
-            firebase.database().ref("job").set("new job");
+            firebase.database().ref("job").set("start");
             let task = storageRef.put(file);
             task.on('state_changed',
 
@@ -33,7 +33,10 @@ fileButton.addEventListener('change', e => {
                 err => {}, // on error
 
                 () => {
-                    location.href="viewer.html"
+                    firebase.database().ref("job").on("value", snap => {
+                        if(snap.val() === "complete")
+                            location.href="viewer.html"
+                    });
                 } // on complete
 
             );
