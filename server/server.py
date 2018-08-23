@@ -17,6 +17,7 @@ app = firebase_admin.initialize_app(cred, {
 bucket = storage.bucket()
 
 ref = db.reference('job')
+db.reference('server').set('on')
 
 # def getImageExplained():
 #     b = bucket.blob("photos/" + s + " - image.jpg")
@@ -38,8 +39,10 @@ while True:
         card = getCard(getImage())
         cv2.imwrite("card-local.jpg", card)
         bucket.blob("card.jpg").upload_from_filename("card-local.jpg")
+        ref.set("complete")
     cv2.imshow("image", getImage())
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
+db.reference('server').set('off')
 cv2.destroyAllWindows()
