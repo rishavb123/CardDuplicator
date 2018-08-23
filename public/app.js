@@ -18,33 +18,38 @@ fileButton.addEventListener('change', e => {
 
     let storageRef = firebase.storage().ref(file.name);
 
-    firebase.database().ref("job").once("value", snap => {
-        if(snap.val() === "complete" || !snap.val())
-        {
-            firebase.database().ref("job").set("start");
-            let task = storageRef.put(file);
-            task.on('state_changed',
+    firebase.database().ref("server").once("value", snap => {
+        if(snap.val() === "on")
+        firebase.database().ref("job").once("value", snap => {
+            if(snap.val() === "complete" || !snap.val())
+            {
+                firebase.database().ref("job").set("start");
+                let task = storageRef.put(file);
+                task.on('state_changed',
 
-                //on progress
-                snapshot => {
-                    uploader.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                },
+                    //on progress
+                    snapshot => {
+                        uploader.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    },
 
-                err => {}, // on error
+                    err => {}, // on error
 
-                () => {
-                    firebase.database().ref("job").on("value", snap => {
-                        if(snap.val() === "complete")
-                            location.href="viewer.html"
-                    });
-                } // on complete
+                    () => {
+                        firebase.database().ref("job").on("value", snap => {
+                            if(snap.val() === "complete")
+                                location.href="viewer.html";
+                        });
+                    } // on complete
 
-            );
-        }
+                );
+            }
+            else
+            {
+                alert("Another Job is in process\nTry Again in 1-2 minutes");
+            }
+        });
         else
-        {
-            alert("Another Job is in process\nTry Again in 1-2 minutes")
-        }
-    })
+            alert("Server is off");
+    });
 
 });
