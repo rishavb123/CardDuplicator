@@ -68,6 +68,11 @@ def getCard(img):
 
     return ndimage.rotate(crop(img, rect), 90)
 
+#--------------------------------IDEA------------------------------------------------------
+# Another Way to find the card would by to pick specific predetermined cordinates
+# for where to crop the image; I would have to show the client these cordinates somehow tho
+#--------------------------------IDEA---------------------------------------------------------
+
 while True:
     if ref.get() == 'start':
         ref.set("doing")
